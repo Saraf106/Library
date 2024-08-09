@@ -25,32 +25,28 @@ def insert_file(file_path, list_path):
     attribute = [name_file, path_file, subject, school, year]
 
     # Convert the vector to a DataFrame
-    # Assuming the CSV file should have headers: 'File Name', 'Path', 'Subject', 'School', 'Year'
     column_names = ['File Name', 'Path', 'Subject', 'School', 'Year']
     new_row_df = pd.DataFrame([attribute], columns=column_names)
 
-    # Path to the CSV file
-    csv_file = '../Database/database.csv'
-
     # Check if the file exists
-    if not os.path.isfile(csv_file):
+    if not os.path.isfile(file_path):
         # Write the DataFrame with headers if the file does not exist
-        new_row_df.to_csv(csv_file, mode='w', header=True, index=False)
+        new_row_df.to_csv(file_path, mode='w', header=True, index=False)
     else:
         # Append to the file without headers if it exists
-        new_row_df.to_csv(csv_file, mode='a', header=False, index=False)
+        new_row_df.to_csv(file_path, mode='a', header=False, index=False)
 
 
     #2. UPDATE THE LIST OF OPTIONS POSSIBLE FOR SUBJECTS AND SCHOOLS
 
 
-    options_saved(subject, school)
+    options_saved(subject, school, list_path)
 
-def options_saved(subject, school):
+def options_saved(subject, school, list_path):
 
 
-    # read specific columns of csv file using Pandas
-    df = pd.read_csv('../Database/list_options.csv', usecols=['Subject'])
+    # read specific columns of csv file
+    df = pd.read_csv(list_path, usecols=['Subject'])
     out = df['Subject'].isin([subject]).any()
     print(out)
     if not out:
@@ -58,15 +54,12 @@ def options_saved(subject, school):
     else:
         new = False
 
-    df = pd.read_csv('../Database/list_options.csv', usecols=['School'])
+    df = pd.read_csv(list_path, usecols=['School'])
     out = df['School'].isin([school]).any()
-    print(df['School'].values)
-    print(out)
     if not out:
         if new is False:
-            print("sono qui")
             dp = pd.DataFrame([[None, school]], columns=['Subject', 'School'])
-            dp.to_csv('../Database/list_options.csv', mode='a', header=False, index=False)
+            dp.to_csv(list_path, mode='a', header=False, index=False)
         else:
             dp = pd.DataFrame([[subject, school]], columns=['Subject', 'School'])
-            dp.to_csv('../Database/list_options.csv', mode='a', header=False, index=False)
+            dp.to_csv(list_path, mode='a', header=False, index=False)
