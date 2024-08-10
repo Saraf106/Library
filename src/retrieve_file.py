@@ -1,18 +1,20 @@
 import csv
 import pandas as pd
 
-
+def retrieve_options(list_path):
+    df = pd.read_csv(list_path, usecols=['Subject'])
+    filtered_subjects = df['Subject'].dropna()
+    de = pd.read_csv(list_path, usecols=['School'])
+    filtered_schools = de['School'].dropna()
+    return filtered_subjects, filtered_schools
 def filter_retrival(file_path, list_path):
 
     #getting the possible options available for
-    df = pd.read_csv('../Database/list_options.csv', usecols=['Subject'])
-    filtered_subjects = df['Subject'].dropna()
-    de = pd.read_csv('../Database/list_options.csv', usecols=['School'])
-    filtered_schools = de['School'].dropna()
+    filtered_subjects, filtered_schools = retrieve_options(list_path)
     print("Choose what you want to do:\n")
     choice = int(input("0 -> filter by subject \n1 -> filter by school\n2-> filter by subject and school\n"))
     if choice == 0:
-        subject = input(f"Select the subject among: {filtered_subjects.values}\n") #mettere il vettore tra cui scegliere e dare le opzioni in automatico
+        subject = input(f"Select the subject among: {filtered_subjects.values}\n")
         school = False
         get_documents(subject, school, file_path)
     elif choice == 1:
