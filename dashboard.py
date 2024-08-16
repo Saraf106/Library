@@ -148,6 +148,8 @@ def insert_callback(file_name = None, file_path = None, subject = None, school =
             dff = dff[['FileName', 'Path', 'Subject', 'School', 'Year']]
             subjects = [x for x in sorted(dff.Subject.unique())]
             schools = [x for x in sorted(dff.School.unique())]
+            print(subjects)
+            print(schools)
             return subjects, schools
     else:
         return [x for x in sorted(df.Subject.unique())],[x for x in sorted(df.School.unique())]
@@ -156,20 +158,15 @@ def insert_callback(file_name = None, file_path = None, subject = None, school =
 
 @app.callback(
     Output(my_table, 'data'),
-    #Output(my_table, 'page_size'),
     Input(subject_drop, 'value'),
     Input(school_drop, 'value'),
     Input('addbutton', 'n_clicks')
 )
 def retrieve_file(subject, school, click):
 
-    if click:
-        dff = pd.read_csv(data_path)
-        dff = dff[['FileName', 'Path', 'Subject', 'School', 'Year']]
-        return dff.to_dict('records')
-
-    else:
-        dff = df.copy()
+    #dff = df.copy()
+    dff = pd.read_csv(data_path)
+    dff = dff[['FileName', 'Path', 'Subject', 'School', 'Year']]
 
     if school and subject:
         dff = dff[dff['Subject'] == subject]
@@ -187,8 +184,13 @@ def retrieve_file(subject, school, click):
         print("DataFrame after filtering:\n", dff)
         return dff.to_dict('records')
 
-
-
+    """
+    if click:
+        
+        print("I have to print the updated table")
+        print(dff)
+        return dff.to_dict('records')
+    """
     return dff.to_dict('records')
 
 
