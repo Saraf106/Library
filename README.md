@@ -4,4 +4,4 @@ In this repository a personal library is implemented. The project is intended to
 3. Modify the path of a file
 4. Use the dashboard interface to save and retrieve files
 
-![img.png](img.png)
+![img.png](image_screen.png)
