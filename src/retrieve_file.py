@@ -71,6 +71,7 @@ def filter_school(file_path, school):
     return found
 
 
+
 def filter_subject_school(file_path, subject, school):
     with open(file_path, 'r', newline='') as f:
         reader = csv.reader(f)
