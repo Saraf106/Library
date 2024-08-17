@@ -3,13 +3,10 @@ import dash_bootstrap_components as bootstrap
 from dash.long_callback import DiskcacheLongCallbackManager
 import diskcache
 from dash import dash_table
-import dash
 import pandas as pd
 from src.retrieve_file import retrieve_options
 from src.add_file import insert_file_dashboard
-from src.retrieve_file import filter_subject_dashboard
-from src.retrieve_file import filter_school_dashboard
-from src.retrieve_file import filter_subject_school_dashboard
+
 
 
 
@@ -35,7 +32,7 @@ def get_list_subject_and_school(list_path):
 
 children_subject, children_school = get_list_subject_and_school(list_path)
 
-#[x for x in sorted(df.Subject.unique())],
+
 #Structure of the page
 
 header = bootstrap.Navbar(bootstrap.Container(html.H3("Jessica's School Library", style={'color': 'white'}, className="text-center"), fluid=True), dark=True, color='#c71585', sticky='top')
