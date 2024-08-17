@@ -67,7 +67,7 @@ content = bootstrap.Container([
                 ],
                 data=df.to_dict('records'),
                 filter_action='native',
-                page_size=10,
+                page_size=8,
 
                 style_data={
                     'width': '150px', 'minWidth': '150px', 'maxWidth': '150px',
@@ -109,7 +109,9 @@ content = bootstrap.Container([
                 className="mb-3", size="lg"
             ),
 
-            bootstrap.Button("Add file", color="success", className="me-1", size="lg", id="addbutton")
+            bootstrap.Button("Add file", color="success", className="me-1", size="lg", id="addbutton"),
+            bootstrap.Button("Clear", color="danger", className="me-1", size="lg", id="clearbutton"),
+
         ]),
 
         bootstrap.Col(
@@ -121,7 +123,20 @@ content = bootstrap.Container([
                     ),
                 ],
                 style={"width": "18rem"},
-            ), style={"margin-left": "100px"}
+            ), style={"margin-left": "100px"}, width = 3
+        ),
+
+        bootstrap.Col(
+            bootstrap.Card(
+                [
+                    bootstrap.CardImg(src= "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=626&ext=jpg", top=True),
+                    bootstrap.CardBody(
+                        html.P("", className="card-text", style={"font-size": "20px"} )
+                    ),
+                ],
+                style={"width": "16rem", "height": "17rem"},
+            ), style={"margin-left": "10px"}, width = 3
+
         )
     ]),
 
@@ -193,7 +208,17 @@ def retrieve_file(subject, school, click):
     """
     return dff.to_dict('records')
 
+@app.callback(
+    Output(component_id="InsertFileName", component_property="value"),
+    Output(component_id="InsertFilePath", component_property="value"),
+    Output(component_id="InsertSubject", component_property="value"),
+    Output(component_id="InsertSchool", component_property="value"),
+    Output(component_id="InsertYear", component_property="value"),
+    Input(component_id="clearbutton", component_property="n_clicks"),
+)
+def clear_options(click):
 
+    return None, None, None, None, None
 
 if __name__ == '__main__':
     app.run(debug=True)
